@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcryptjs";
-import { PassportStatic } from "passport";
 
 import dbConnect from "@/lib/dbConnect";
+import { IUser } from "@/lib/auth";
+
 import User from "@/models/User";
-import { createToken } from "@/lib/auth";
 
 export default async function handler(
-  req: NextApiRequest & { login: PassportStatic["authenticate"] },
+  req: NextApiRequest,
   res: NextApiResponse
 ) {
   await dbConnect();
@@ -28,19 +28,15 @@ export default async function handler(
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Створення нового користувача
-      const newUser = await User.create({ email, password: hashedPassword });
+      const newUser = (await User.create({
+        email,
+        password: hashedPassword,
+      })) as IUser;
 
-      // Автентифікація користувача та створення та підпис JWT токена
-      req.login(newUser, { session: false }, (err: any) => {
-        if (err) {
-          return res.status(400).json({ success: false, message: err.message });
-        }
-
-        const token = createToken(newUser);
-
-        return res
-          .status(201)
-          .json({ success: true, data: { user: newUser, token } });
+      res.status(201).json({
+        success: true,
+        message: "Registration successful.",
+        emailUser: newUser.email,
       });
     } else {
       res.status(400).json({ success: false });

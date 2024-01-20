@@ -2,7 +2,11 @@ import jwt from "jsonwebtoken";
 
 import { User } from "@/models/User";
 
-export const createToken = (user: User): string => {
+export interface IUser extends User {
+  _id: string | number;
+}
+
+export const createToken = (user: IUser): string => {
   const payload = {
     sub: user._id,
     email: user.email,
