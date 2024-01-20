@@ -7,7 +7,7 @@ import { getAllEvents } from "@/services/apiGetAllEvents";
 import { IEvents } from "@/types/eventForm";
 
 export default async function Events() {
-  const data: IEvents = await getAllEvents();
+  const data = (await getAllEvents()) as IEvents;
 
   return (
     <main className="mt-[50px] container">

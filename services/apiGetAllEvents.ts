@@ -14,7 +14,7 @@ async function getIronSessionCustom() {
 export const getAllEvents = async () => {
   await dbConnect();
   const session = (await getIronSessionCustom()) as any;
-  console.log(session);
+  // console.log(session);
   if (!session?.user) {
     console.log("User not authenticated");
   }
