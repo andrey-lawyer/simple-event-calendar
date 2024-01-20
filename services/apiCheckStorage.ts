@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { api } from "./axiosInstance";
 
 export const validateToken = async (token: string | null) => {
@@ -7,13 +8,12 @@ export const validateToken = async (token: string | null) => {
     });
 
     if (!response.data.success) {
-      console.error(
+      toast.error(
         "Token validation failed:",
         response.data.message || "Unknown error"
       );
       return { success: false, message: response.data.message };
     } else {
-      console.log("Token validated successfully");
       return {
         success: true,
         exists: response.data.exists,
@@ -21,7 +21,7 @@ export const validateToken = async (token: string | null) => {
       };
     }
   } catch (error) {
-    console.error("Token validation error:", error);
+    toast.error("Token validation error:");
   }
 };
 
@@ -30,6 +30,6 @@ export async function checkUserByEmail(email: string | null) {
     const response = await api.post("check-user", { email });
     return response.data.exists;
   } catch (error) {
-    console.error("Error checking user:", error);
+   toast.error("Error checking user:");
   }
 }

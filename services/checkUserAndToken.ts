@@ -1,5 +1,6 @@
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { checkUserByEmail, validateToken } from "./apiCheckStorage";
+import { toast } from "react-toastify";
 
 export async function checkUserAndToken(router: AppRouterInstance) {
   const userEmail = localStorage.getItem("registeredUserEmail");

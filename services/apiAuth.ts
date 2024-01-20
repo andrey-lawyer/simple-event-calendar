@@ -3,7 +3,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 
 import { api } from "./axiosInstance";
 import { IValue } from "@/types/valueForm";
-
+import { toast } from "react-toastify";
 
 export const register = async (
   values: IValue,
@@ -14,12 +14,12 @@ export const register = async (
     const response = await api.post(`auth/register`, values);
 
     if (!response.data.success) {
-      console.error(
+      toast.error(
         "Registration failed:",
         response.data.message || "Unknown error"
       );
     } else {
-      console.log("Registration successful");
+      toast.success("Registration successful");
       localStorage.setItem("registeredUserEmail", values.email);
       actions.resetForm();
       router.push("/login");
@@ -27,7 +27,7 @@ export const register = async (
 
     return response.data;
   } catch (error) {
-    console.error("Registration error:", error);
+    toast.error("Registration failed");
     return { success: false, message: "Registration failed" };
   }
 };
@@ -46,9 +46,9 @@ export const login = async (
     const response = await api.post(`auth/login`, values);
 
     if (!response.data.success) {
-      console.error("Login failed:", response.data.message || "Unknown error");
+      toast.error("Login failed:", response.data.message || "Unknown error");
     } else {
-      console.log("Login successful");
+      toast.success("Login successful");
       localStorage.setItem("authToken", response.data.token);
       actions.resetForm();
       router.push("/");
@@ -56,7 +56,7 @@ export const login = async (
 
     return response.data;
   } catch (error) {
-    console.error("Login error:", error);
+    toast.error("Login error:");
     return { success: false, message: "Login failed" };
   }
 };

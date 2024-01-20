@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { api } from "./axiosInstance";
 
 export const submitDeleteEvent = async (idEvent: string) => {
@@ -5,7 +6,7 @@ export const submitDeleteEvent = async (idEvent: string) => {
     const token = localStorage.getItem("authToken");
 
     if (!token) {
-      console.error("Error: Missing token.");
+      toast.error("Error: Missing token.");
       return { success: false, message: "Missing token" };
     }
 
@@ -16,11 +17,11 @@ export const submitDeleteEvent = async (idEvent: string) => {
     });
 
     if (response.data.success) {
-      console.log("Event deleted successfully:", response.data.data);
+     toast.success("Event deleted successfully:", response.data.data);
 
       return { success: true, data: response.data.data };
     } else {
-      console.error(
+     toast.error(
         "Error deleting event:",
         response.data.message || "Unknown error"
       );
@@ -30,7 +31,7 @@ export const submitDeleteEvent = async (idEvent: string) => {
       };
     }
   } catch (error) {
-    console.error("Error deleting event:", error);
+    toast.error("Error deleting event");
     return { success: false, message: "Error deleting event" };
   }
 };

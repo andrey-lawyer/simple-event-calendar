@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 import { Header } from "@/components/Header";
 
 import "./globals.css";
@@ -24,6 +28,7 @@ export default function RootLayout({
         <Header />
         <div>ничего не понятно...</div>
         {children}
+        <ToastContainer />
       </body>
     </html>
   );
