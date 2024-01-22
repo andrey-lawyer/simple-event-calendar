@@ -1,7 +1,13 @@
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { api } from "./axiosInstance";
+import { userSlice } from "@/lib/redux";
 
-export const validateToken = async (token: string | null) => {
+export const validateToken = async (
+  token: string | null,
+  dispatch: Dispatch<UnknownAction>
+) => {
   try {
+    dispatch(userSlice.actions.statusApp(true));
     const response = await api.post("validate-token", null, {
       headers: { Authorization: `Bearer ${token}` },
     });

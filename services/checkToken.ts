@@ -10,7 +10,7 @@ export async function checkToken(
 ) {
   const userToken = localStorage.getItem("authToken");
   try {
-    const tokenValidationResult = await validateToken(userToken);
+    const tokenValidationResult = await validateToken(userToken, dispatch);
 
     if (!tokenValidationResult || !tokenValidationResult?.success) {
       router.push("/register");
@@ -20,5 +20,7 @@ export async function checkToken(
     }
   } catch (error) {
     console.error(error);
+  } finally {
+    dispatch(userSlice.actions.statusApp(false));
   }
 }
