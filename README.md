@@ -24,7 +24,6 @@ This project is a simple event calendar application built with Next.js, Redux, a
 - Events will be between 8 am to 5 pm.
 - Calendar will cover only one same day.
 - Users can add/remove events from their calendar.
-- Users can export their calendar in JSON format.
 - User should be able to log in and persist his inputs between logins.
 - Calendar should be rendered on the server with all events.
 
