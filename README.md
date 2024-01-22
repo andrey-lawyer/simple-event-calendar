@@ -15,7 +15,6 @@ This project is a simple event calendar application built with Next.js, Redux, a
 
 ## Requirements
 
-- Users can view a calendar with a layout similar to the one displayed in image 1.
 - Conflicting events have the same width and should not overlap.
 - The maximum event width is 200px.
 - Event background color is #E2ECF5 with #6E9ECF border color.
@@ -25,7 +24,8 @@ This project is a simple event calendar application built with Next.js, Redux, a
 - Events will be between 8 am to 5 pm.
 - Calendar will cover only one same day.
 - Users can add/remove events from their calendar.
-- Users can export their calendar in JSON format.
+- User should be able to log in and persist his inputs between logins.
+- Calendar should be rendered on the server with all events.
 
 ## Technologies
 
