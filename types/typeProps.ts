@@ -14,3 +14,8 @@ export interface IFormEventProps {
   type: "add" | "update";
   id?: string | undefined | string[];
 }
+
+export interface ILinkProps {
+  href: string;
+  title: string;
+}

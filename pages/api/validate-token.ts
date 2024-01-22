@@ -17,10 +17,14 @@ export default async function handler(
   }
 
   try {
-    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY) as any;
 
     if (decodedToken) {
-      res.status(200).json({ success: true, message: "Authorized" });
+      res.status(200).json({
+        success: true,
+        message: "Authorized",
+        email: decodedToken.email,
+      });
     } else {
       res.status(401).json({ error: "Unauthorized" });
     }

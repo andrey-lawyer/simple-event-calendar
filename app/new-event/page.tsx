@@ -2,7 +2,7 @@ import { FormEvent } from "@/components/FormEvent";
 
 export default function NewEvent() {
   return (
-    <main className="mt-[50px] container">
+    <main className="pt-[80px] container">
       <FormEvent type="add" />
     </main>
   );

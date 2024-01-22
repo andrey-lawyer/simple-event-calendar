@@ -1,9 +1,18 @@
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+
 import { submitEvent, updateEvent } from "./apiSubmitEvent";
 import { calculateMinutes } from "./calculateMinutes";
 
-export const formatValuesForSubmission = (
+import { IFormikValue } from "@/types/extendTypeFormik";
+
+export const formatValuesForSubmission = async (
   type: string,
   values: any,
+  actions: IFormikValue,
+  router: AppRouterInstance,
+  token: string | null,
+  dispatch: Dispatch<UnknownAction>,
   id?: string | string[]
 ) => {
   const startTimeInMinutes = calculateMinutes(values.hours, values.minutes);
@@ -29,8 +38,22 @@ export const formatValuesForSubmission = (
   };
 
   if (type === "add") {
-    submitEvent(formattedValues);
+    const { success } = await submitEvent(
+      formattedValues,
+      actions,
+      token,
+      dispatch
+    );
+    return success;
   } else if (type === "update" && id) {
-    updateEvent(id, formattedValues);
+    const { success } = await updateEvent(
+      id,
+      formattedValues,
+      actions,
+      router,
+      token,
+      dispatch
+    );
+    return success;
   }
 };

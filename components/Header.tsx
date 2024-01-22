@@ -1,35 +1,21 @@
-import Link from "next/link";
+import { linkData1, linkData2 } from "@/data/linkData";
+import { LinkNav } from "./LinkNav";
 
 export const Header = () => {
   return (
-    <header className="fixed z-2 w-full border-b border-gray-300 py-2 backdrop-blur-2xl shadow-lg bg-blue-500 text-white md:py-4 xl:py-3">
-      <div className="container flex items-center justify-between">
-        <nav className="flex items-center gap-4 md:gap-8 xl:gap-16 xxl:gap-24">
-          <Link
-            className="inline-block px-4 py-2 text-base font-bold text-center no-underline rounded-md bg-white text-gray-700 transition duration-300 ease-in-out hover:bg-gray-700 hover:text-white"
-            href="/"
-          >
-            Home
-          </Link>
-
-          <Link
-            className="inline-block px-4 py-2 text-base font-bold text-center no-underline rounded-md bg-white text-gray-700 transition duration-300 ease-in-out hover:bg-gray-700 hover:text-white"
-            href="/events"
-          >
-            Events
-          </Link>
-          <Link
-            className="inline-block px-4 py-2 text-base font-bold text-center no-underline rounded-md bg-white text-gray-700 transition duration-300 ease-in-out hover:bg-gray-700 hover:text-white"
-            href="/register"
-          >
-            Sign up
-          </Link>
-          <Link
-            className="inline-block px-4 py-2 text-base font-bold text-center no-underline rounded-md bg-white text-gray-700 transition duration-300 ease-in-out hover:bg-gray-700 hover:text-white"
-            href="/login"
-          >
-            Login
-          </Link>
+    <header className="fixed z-10 w-full border-b border-gray-300 py-2 backdrop-blur-2xl shadow-lg bg-blue-500 text-white md:py-4 xl:py-3">
+      <div className="container  ">
+        <nav className="flex justify-between  gap-4 md:gap-8 xl:gap-16 xxl:gap-24 ">
+          <div className="flex gap-2">
+            {linkData1.map((el, ind) => (
+              <LinkNav key={ind} href={el.href} title={el.title} />
+            ))}
+          </div>
+          <div className="flex gap-2">
+            {linkData2.map((el, ind) => (
+              <LinkNav key={ind} href={el.href} title={el.title} />
+            ))}
+          </div>
         </nav>
       </div>
     </header>

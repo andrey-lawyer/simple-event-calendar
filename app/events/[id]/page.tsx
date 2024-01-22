@@ -1,14 +1,14 @@
 "use client";
 
-import { FormEvent } from "@/components/FormEvent";
 import { useParams } from "next/navigation";
+
+import { FormEvent } from "@/components/FormEvent";
 
 export default function EventUpdate() {
   const params = useParams();
   console.log(params?.id);
   return (
-    <main className="mt-[50px] container">
-      This is update page
+    <main className="pt-[80px] container">
       <FormEvent type="update" id={params?.id} />
     </main>
   );

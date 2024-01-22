@@ -1,10 +1,22 @@
 import { toast } from "react-toastify";
-import { api } from "./axiosInstance";
-import { IEventForm } from "@/types/eventForm";
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-export const submitEvent = async (formattedValues: IEventForm) => {
+import { api } from "./axiosInstance";
+import { userSlice } from "@/lib/redux";
+
+import { IEventForm } from "@/types/eventForm";
+import { IFormikValue } from "@/types/extendTypeFormik";
+
+export const submitEvent = async (
+  formattedValues: IEventForm,
+  actions: IFormikValue,
+  token: string | null,
+
+  dispatch: Dispatch<UnknownAction>
+) => {
   try {
-    const token = localStorage.getItem("authToken");
+    dispatch(userSlice.actions.statusApp(true));
     if (!token) {
       toast.error("Error: Missing token.");
       return { success: false, message: "Missing token" };
@@ -27,21 +39,28 @@ export const submitEvent = async (formattedValues: IEventForm) => {
         message: response.data.message || "Unknown error",
       };
     } else {
-      toast.success("Event created successfully", response.data.data);
+      toast.success("Event created successfully");
+      actions.resetForm();
       return { success: true, data: response.data.data };
     }
   } catch (error) {
     toast.error("Error creating event");
     return { success: false, message: "Error creating event" };
+  } finally {
+    dispatch(userSlice.actions.statusApp(false));
   }
 };
 
 export const updateEvent = async (
   eventId: string | undefined | string[],
-  formattedValues: IEventForm
+  formattedValues: IEventForm,
+  actions: IFormikValue,
+  router: AppRouterInstance,
+  token: string | null,
+  dispatch: Dispatch<UnknownAction>
 ) => {
   try {
-    const token = localStorage.getItem("authToken");
+    dispatch(userSlice.actions.statusApp(true));
     if (!token) {
       console.error("Error: Missing token.");
       return { success: false, message: "Missing token" };
@@ -64,11 +83,15 @@ export const updateEvent = async (
         message: response.data.message || "Unknown error",
       };
     } else {
-      console.log("Event updated successfully:", response.data.data);
+      toast.success("Event updated successfully:");
+      actions.resetForm();
+      router.push("/events");
       return { success: true, data: response.data.data };
     }
   } catch (error) {
     console.error("Error updating event:", error);
     return { success: false, message: "Error updating event" };
+  } finally {
+    dispatch(userSlice.actions.statusApp(false));
   }
 };

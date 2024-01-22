@@ -3,6 +3,7 @@ export interface IEventForm {
   duration: number;
   title: string;
   _id?: string;
+  intersect?: number;
 }
 
 export interface IEvents {
