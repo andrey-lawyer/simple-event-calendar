@@ -15,7 +15,6 @@ This project is a simple event calendar application built with Next.js, Redux, a
 
 ## Requirements
 
-- Users can view a calendar with a layout similar to the one displayed in image 1.
 - Conflicting events have the same width and should not overlap.
 - The maximum event width is 200px.
 - Event background color is #E2ECF5 with #6E9ECF border color.
