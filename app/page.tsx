@@ -7,11 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
 import { checkToken } from "@/services/checkToken";
-import { selectEmail } from "@/lib/redux";
+import { selectEmail, selectStatus } from "@/lib/redux";
+import { Loader } from "@/components/Loader";
 
 export default function Home() {
   const router = useRouter();
   const emailUser = useSelector(selectEmail);
+  const loading = useSelector(selectStatus);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function Home() {
           )}
         </div>
       </div>
+      {loading && <Loader />}
     </main>
   );
 }
